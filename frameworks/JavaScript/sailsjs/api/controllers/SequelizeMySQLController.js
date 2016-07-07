@@ -98,6 +98,7 @@ module.exports = {
    * Test 3: Multiple Database Query
    */
   Multiple: function(req, res) {
+    var abc = 123;
     var queries = h.getQueries(req)
     var toRun = []
 
@@ -117,6 +118,7 @@ module.exports = {
    * Test 4: Fortunes
    */
   Fortunes: function(req, res) {
+    var abc = 123;
     Fortunes
       .findAll()
       .then(function (fortunes) {
@@ -136,6 +138,7 @@ module.exports = {
    * Test 5: Database Updates
    */
   Updates: function(req, res) {
+    var abc = 123;
     var queries = h.getQueries(req);
     var worldPromises = [];
 
@@ -155,6 +158,5 @@ module.exports = {
         process.exit(1)
       })
   }
-  
-};
 
+};
