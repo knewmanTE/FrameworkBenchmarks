@@ -8,7 +8,7 @@ var cluster = require('cluster')
   , express = require('express')
   , Sequelize = require('sequelize')
   , mongoose = require('mongoose')
-  , conn = mongoose.connect('mongodb://localhost/hello_world')
+  , conn = mongoose.connect('mongodb://127.0.0.1/hello_world')
   , async = require('async');
 
 // Middleware
@@ -27,8 +27,16 @@ var WorldSchema = new mongoose.Schema({
   }),
   MWorld = conn.model('World', WorldSchema);
 
+var FortuneSchema = new mongoose.Schema({
+    id          : Number,
+    message     : String
+  }, {
+    collection: 'fortune'
+  }),
+  MFortune = conn.model('Fortune', FortuneSchema);
+
 var sequelize = new Sequelize('hello_world', 'benchmarkdbuser', 'benchmarkdbpass', {
-  host: 'localhost',
+  host: '127.0.0.1',
   dialect: 'mysql',
   logging: false
 });
@@ -156,7 +164,19 @@ if (cluster.isMaster) {
     });
   });
 
-  app.get('/fortune', function(req, res) {
+  app.get('/mongoose-fortune', function(req, res) {
+    MFortune.find({}, function(err, fortunes) {
+      var newFortune = {id: 0, message: "Additional fortune added at request time."};
+      fortunes.push(newFortune);
+      fortunes.sort(function (a, b) {
+        return (a.message < b.message) ? -1 : 1;
+      });
+
+      res.render('fortunes', {fortunes: fortunes});
+    });
+  });
+
+  app.get('/mysql-orm-fortune', function(req, res) {
     Fortune.findAll().then(function (fortunes) {
       var newFortune = {id: 0, message: "Additional fortune added at request time."};
       fortunes.push(newFortune);
