@@ -7,6 +7,8 @@ RETCODE=$(fw_exists ${IROOT}/crystal.installed)
 
 # install crystal
 
+echo ""
+
 VERSION="0.18.7"
 
 SAVE_AS=crystal-$VERSION-1-linux-x86_64.tar.gz
