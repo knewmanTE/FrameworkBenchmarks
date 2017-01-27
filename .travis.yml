@@ -58,6 +58,7 @@ env:
     - "TESTDIR=Go/gin"
     - "TESTDIR=Go/goji"
     - "TESTDIR=Go/go-std"
+    - "TESTDIR=Go/iris"
     - "TESTDIR=Go/revel"
     - "TESTDIR=Go/webgo"
     - "TESTDIR=Groovy/grails"
